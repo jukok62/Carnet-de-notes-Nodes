@@ -17,7 +17,7 @@ router.get("/", async (req, res) =>{
 });
 
 router.get("/:id", async (req, res) =>{
-    categorieService.fetchCategorie(req.params.id).then(result =>{
+    categorieService.fetchCategorieById(req.params.id).then(result =>{
         res.status(200)
         res.json(result);
     }).catch(err =>{

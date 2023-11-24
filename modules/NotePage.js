@@ -25,6 +25,17 @@ router.get("/:id", async (req,res) => {
     })
 })
 
+router.get("/:id/note", async (req,res) => {
+    noteService.fetchNoteByNoteId(req.params.id)
+    .then(result => {
+        res.status(200).json(result[0]);
+    })
+    .catch(err => {
+        console.error("oops" , err);
+        res.json({"message ": "error" + err.sqlMessage});
+    })
+})
+
 router.post('/', (req, res) => {
     let data = req.body;
     noteService.addNote(data).then(result => {
@@ -35,6 +46,20 @@ router.post('/', (req, res) => {
         res.json({"message" : "Votre ajout ne s'est pas bien passé"})
     })
   })
+
+  router.put('/:id', (req, res) => {
+    let data = req.body;
+    noteService.updateNote2(req.params.id, data) // Passer les données à mettre à jour à la fonction
+        .then(result => {
+            res.status(201)
+            res.json(data)
+            console.log('Requête SQL:', result); // Utiliser 'result' au lieu de 'sql' ici
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).send({"message" : "Votre mise à jour ne s'est pas bien passée"}); // Envoyer une réponse avec un statut 500 pour indiquer une erreur interne du serveur
+        });
+});
 
   router.delete('/:id', (req, res) => {
     let id = req.params.id;

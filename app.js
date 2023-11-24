@@ -9,6 +9,11 @@ const monCompte = require("./modules/Moncompte")
 const inscription = require("./modules/InscriptionPage")
 const categorie = require('./modules/categoriePage')
 const date = require('./modules/datePage')
+const  jwt  =  require ( 'jsonwebtoken' ) ; 
+// chargement du fichier d'env
+require('dotenv').config();
+// accès au variables
+process.env.ACCESS_TOKEN_SECRET;
 
 app.use(express.json())
 app.use(cors({
